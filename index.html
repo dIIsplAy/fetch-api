@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+
+    <form id="form" action="new-article.php" method="POST">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title">
+        <label for="article">Article</label>
+        <textarea for="article" value="article" id="article" name="article"></textarea>
+        <input type="submit" value="Send" id="send">
+
+    </form>
+
+
+    <script>
+        // On recupere send et on fix un evenement dessus
+        let submit = document.querySelector("#send");
+        submit.addEventListener('click', function(e) {
+            // le prevent default sers a evité le changement de page 
+            e.preventDefault();
+            let form = document.querySelector("#form");
+            // le fetch envoie linformation a la page lié
+            fetch('new-article.php', {
+                    method: "POST",
+                    body: new FormData(form)
+                })
+                .then(function(response) {
+                    return response.text();
+
+                }).then(function(text) {
+                    console.log(text)
+
+
+                }).catch(function(error) {
+                    console.error(error);
+                });
+        });
+    </script>
+</body>
+
+</html>
